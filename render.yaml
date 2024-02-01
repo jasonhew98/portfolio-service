@@ -1,0 +1,31 @@
+RabbitMQ:
+  ConnectionUrl: RabbitMQ_ConnectionUrl
+JwtAuthorizationConfigurations:
+  Secret: JwtAuthorizationConfigurations_Secret
+  Issuer: JwtAuthorizationConfigurations_Issuer
+PortfolioRepository:
+  MongoDbUrl: PortfolioRepository_MongoDbUrl
+  Database: PortfolioRepository_Database
+  UserCollectionName: User
+AesConfigurations:
+  Password: AesConfigurations_Password
+  Salt: AesConfigurations_Salt
+  Iterations: AesConfigurations_Iterations
+  KeySize: AesConfigurations_KeySize
+DirectoryPathConfigurations:
+  ProfilePicture:
+Logging:
+  LogLevel:
+    Default: Information
+    Microsoft: Warning
+    Microsoft.Hosting.Lifetime: Information
+BaseAddressConfigurations:
+  GoogleDrive: https://drive.google.com/file/d/
+  GoogleSpreadsheet: https://docs.google.com/spreadsheets/d/
+  OneDrive: https://api.onedrive.com/v1.0/
+GoogleAuthServiceConfigurations:
+  ServiceUrl: https://oauth2.googleapis.com/
+MicrosoftGraphServiceConfigurations:
+  ServiceUrl: "https://graph.microsoft.com/v1.0/"
+MicrosoftAuthServiceConfigurations":
+  ServiceUrl: https://login.microsoftonline.com/common/oauth2/v2.0/
