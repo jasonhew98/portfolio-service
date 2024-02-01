@@ -1,17 +1,26 @@
 RabbitMQ:
   ConnectionUrl: RabbitMQ_ConnectionUrl
+  sync: false
 JwtAuthorizationConfigurations:
   Secret: JwtAuthorizationConfigurations_Secret
+  sync: false
   Issuer: JwtAuthorizationConfigurations_Issuer
+  sync: false
 PortfolioRepository:
   MongoDbUrl: PortfolioRepository_MongoDbUrl
+  sync: false
   Database: PortfolioRepository_Database
+  sync: false
   UserCollectionName: User
 AesConfigurations:
   Password: AesConfigurations_Password
+  sync: false
   Salt: AesConfigurations_Salt
+  sync: false
   Iterations: AesConfigurations_Iterations
+  sync: false
   KeySize: AesConfigurations_KeySize
+  sync: false
 DirectoryPathConfigurations:
   ProfilePicture:
 Logging:
