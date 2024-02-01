@@ -1,0 +1,86 @@
+@url=https://localhost:5001
+@AuthorizationToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMzZDdiMzNlNzkwZTRmODliYzNhZTQ2YmRjOThhNDBlIiwic3ViIjoiamFzb25oZXc5OCIsImVtYWlsIjoiaDZWdTVqQjY4WkhPYnUzOTlaYzgxeFZvUFJtWGRhZ2ZTWmRndnBGekpncz0iLCJqdGkiOiI5MjQ0MGZmMy02MzE5LTRhZGMtOWE2NS0xZWViOGRkNTY3NGMiLCJleHAiOjE3MDY3OTQ5MTMsImlzcyI6InBvcnRmb2xpby5jb20iLCJhdWQiOiJwb3J0Zm9saW8uY29tIn0.tPW_OTScnCEyh3S2_bBuVF4LrDKmnlfTEUWTwcYgs28
+
+## Auth
+### Sign Up
+POST {{url}}/api/auth/signup
+Content-Type: application/json
+
+{
+    "Email": "jasonhew1211@gmail.com",
+    "FirstName": "Jia Sheng",
+    "LastName": "Hew",
+    "Password": "",
+    "UserName": ""
+}
+
+### Login
+POST {{url}}/api/auth/login
+Content-Type: application/json
+
+{
+    "UserName": "",
+    "Password": ""
+}
+
+## User
+### Get Users
+@sortBy="userId"
+@sortOrder=-1
+@currentPage=1
+@pageSize=10
+GET {{url}}/api/user?sortBy={{sortBy}}&sortOrder={{sortOrder}}&currentPage={{currentPage}}&pageSize={{pageSize}}
+Authorization: Bearer {{AuthorizationToken}}
+Content-Type: application/json
+
+### Get User Page Size
+@pageSize=10
+GET {{url}}/api/user/pageSize?pageSize={{pageSize}}
+Authorization: Bearer {{AuthorizationToken}}
+Content-Type: application/json
+
+### Get User Detail
+@getUserId=c3d7b33e790e4f89bc3ae46bdc98a40e
+GET {{url}}/api/user/detail?userId={{getUserId}}
+Authorization: Bearer {{AuthorizationToken}}
+Content-Type: application/json
+
+### Update User Detail
+PATCH {{url}}/api/user
+Authorization: Bearer {{AuthorizationToken}}
+Content-Type: application/json
+
+{
+    "UserId": "c3d7b33e790e4f89bc3ae46bdc98a40e",
+    "FirstName": "Jia Sheng",
+    "LastName": "Hew",
+    "ContactNumber": "0126220832",
+    "WorkPreference": "Remote",
+    "SkillSets": [
+        {
+            "Name": "C#",
+            "ProficiencyLevel": 10
+        }
+    ],
+    "WorkExperiences": [
+        {
+            "CompanyName": "Fusionex",
+            "IsCurrentJob": true,
+            "StartDate": "2024-01-21T06:43:25.488Z",
+            "EndDate": null,
+            "Description": "",
+            "SkillSets": [
+                {
+                    "Name": "C#",
+                    "ProficiencyLevel": 10
+                }
+            ]
+        }
+    ],
+    "ModifiedUTCDateTime": "2024-02-01T11:41:32.123Z"
+}
+
+### Get My Profile
+GET {{url}}/api/user/profile/me
+Authorization: Bearer {{AuthorizationToken}}
+Content-Type: application/json
