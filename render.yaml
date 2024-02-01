@@ -1,18 +1,22 @@
 RabbitMQ:
+sync: false
   ConnectionUrl: RABBITMQ_CONNECTIONURL
   sync: false
 JwtAuthorizationConfigurations:
+sync: false
   Secret: JwtAuthorizationConfigurations_Secret
   sync: false
   Issuer: JwtAuthorizationConfigurations_Issuer
   sync: false
 PortfolioRepository:
+sync: false
   MongoDbUrl: PortfolioRepository_MongoDbUrl
   sync: false
   Database: PortfolioRepository_Database
   sync: false
   UserCollectionName: User
 AesConfigurations:
+sync: false
   Password: AesConfigurations_Password
   sync: false
   Salt: AesConfigurations_Salt
@@ -22,6 +26,7 @@ AesConfigurations:
   KeySize: AesConfigurations_KeySize
   sync: false
 DirectoryPathConfigurations:
+sync: false
   ProfilePicture:
 Logging:
   LogLevel:
@@ -29,12 +34,16 @@ Logging:
     Microsoft: Warning
     Microsoft.Hosting.Lifetime: Information
 BaseAddressConfigurations:
+sync: false
   GoogleDrive: https://drive.google.com/file/d/
   GoogleSpreadsheet: https://docs.google.com/spreadsheets/d/
   OneDrive: https://api.onedrive.com/v1.0/
 GoogleAuthServiceConfigurations:
+sync: false
   ServiceUrl: https://oauth2.googleapis.com/
 MicrosoftGraphServiceConfigurations:
+sync: false
   ServiceUrl: "https://graph.microsoft.com/v1.0/"
 MicrosoftAuthServiceConfigurations":
+sync: false
   ServiceUrl: https://login.microsoftonline.com/common/oauth2/v2.0/
