@@ -94,7 +94,7 @@ namespace Api
                 client.BaseAddress = new Uri(url);
             });
 
-            ConfigureEventBusDependencies(services);
+            //ConfigureEventBusDependencies(services);
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
@@ -124,7 +124,7 @@ namespace Api
             app.UseAuthentication();
             app.UseMvc();
 
-            ConfigureIntegrationEvents(app);
+            //ConfigureIntegrationEvents(app);
 
             MongoDbConfiguration.RegisterDefault();
         }
