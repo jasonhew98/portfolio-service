@@ -1,7 +1,6 @@
 RabbitMQ:
 sync: false
-  ConnectionUrl: RABBITMQ_CONNECTIONURL
-  sync: false
+  ConnectionUrl: RabbitMq_ConnectionUrl
 JwtAuthorizationConfigurations:
 sync: false
   Secret: JwtAuthorizationConfigurations_Secret
