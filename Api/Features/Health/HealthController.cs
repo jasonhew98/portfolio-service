@@ -34,13 +34,5 @@ namespace Api.Features.Health
         {
             return Ok("Ok");
         }
-
-        [HttpGet]
-        [Route("configuration")]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.Accepted)]
-        public async Task<IActionResult> Configuration()
-        {
-            return Ok(_portfolioRepositoryOptions.Value.MongoDbUrl);
-        }
     }
 }
