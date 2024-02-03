@@ -1,6 +1,12 @@
 @url=https://localhost:5001
 @AuthorizationToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMzZDdiMzNlNzkwZTRmODliYzNhZTQ2YmRjOThhNDBlIiwic3ViIjoiamFzb25oZXc5OCIsImVtYWlsIjoiaDZWdTVqQjY4WkhPYnUzOTlaYzgxeFZvUFJtWGRhZ2ZTWmRndnBGekpncz0iLCJqdGkiOiI5MjQ0MGZmMy02MzE5LTRhZGMtOWE2NS0xZWViOGRkNTY3NGMiLCJleHAiOjE3MDY3OTQ5MTMsImlzcyI6InBvcnRmb2xpby5jb20iLCJhdWQiOiJwb3J0Zm9saW8uY29tIn0.tPW_OTScnCEyh3S2_bBuVF4LrDKmnlfTEUWTwcYgs28
 
+## Health
+
+### Get Health
+GET {{url}}/api/health
+Content-Type: application/json
+
 ## Auth
 ### Sign Up
 POST {{url}}/api/auth/signup
