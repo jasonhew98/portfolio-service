@@ -4,10 +4,12 @@ using Microsoft.Extensions.Logging;
 using MediatR;
 using Api.Seedwork;
 using System.Net;
+using Microsoft.AspNetCore.Cors;
 
 namespace Api.Features.Authentication
 {
     [Route("api/[controller]")]
+    [EnableCors("AllowAllHeaders")]
     [ApiController]
     public class AuthController : Controller
     {

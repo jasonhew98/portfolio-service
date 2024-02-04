@@ -46,12 +46,13 @@ namespace Api
 
             services.AddCors(options =>
             {
-                options.AddDefaultPolicy(builder =>
+                options.AddPolicy("AllowAllHeaders", builder =>
                 {
                     builder
                     .AllowAnyOrigin()
+                    .AllowAnyHeader()
                     .AllowAnyMethod()
-                    .AllowAnyHeader();
+                    .AllowCredentials();
                 });
             });
 
@@ -128,7 +129,7 @@ namespace Api
                 });
             }
 
-            app.UseCors();
+            app.UseCors("AllowAllHeaders");
             app.UseMiddleware<JwtAuthorizationMiddleware>();
             app.UseDefaultFiles();
             app.UseStaticFiles();

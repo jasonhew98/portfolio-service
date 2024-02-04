@@ -6,10 +6,12 @@ using Api.Seedwork;
 using System.Net;
 using Api.Model;
 using Api.Infrastructure.Authorization;
+using Microsoft.AspNetCore.Cors;
 
 namespace Api.Features.User
 {
     [Route("api/[controller]")]
+    [EnableCors("AllowAllHeaders")]
     [ApiController]
     public class UserController : Controller
     {
