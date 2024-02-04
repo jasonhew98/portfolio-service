@@ -155,3 +155,5 @@ FakesAssemblies/
 
 # Development Config
 appsettings.Development.json
+
+*.yaml
