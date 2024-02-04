@@ -7,6 +7,7 @@ namespace Domain.AggregatesModel.UserAggregate
     public class WorkExperience
     {
         public string CompanyName { get; set; }
+        public string JobTitle { get; set; }
         public bool IsCurrentJob { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }

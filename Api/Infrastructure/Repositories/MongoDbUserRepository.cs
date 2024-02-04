@@ -75,9 +75,12 @@ namespace Infrastructure.Repositories
             var update = Builders<User>.Update
                 .Set(a => a.FirstName, user.FirstName)
                 .Set(a => a.LastName, user.LastName)
+                .Set(a => a.PreferredName, user.PreferredName)
+                .Set(a => a.CountryCode, user.CountryCode)
                 .Set(a => a.ContactNumber, user.ContactNumber)
+                .Set(a => a.Introduction, user.Introduction)
                 .Set(a => a.ProfilePictures, user.ProfilePictures)
-                .Set(a => a.WorkPreference, user.WorkPreference)
+                .Set(a => a.WorkPreferences, user.WorkPreferences)
                 .Set(a => a.SkillSets, user.SkillSets)
                 .Set(a => a.WorkExperiences, user.WorkExperiences)
                 .Set(a => a.ModifiedBy, user.ModifiedBy)

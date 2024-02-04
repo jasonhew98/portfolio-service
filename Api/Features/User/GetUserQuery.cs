@@ -25,39 +25,45 @@ namespace Api.Features.User
 
     public class UserDetailDto
     {
-        public string UserId { get; }
         public string UserName { get; }
         public string Email { get; }
         public string FirstName { get; }
         public string LastName { get; }
+        public string PreferredName { get; }
+        public string CountryCode { get; }
         public string ContactNumber { get; }
+        public string Introduction { get; }
         public List<Attachment> ProfilePictures { get; }
-        public WorkPreference? WorkPreference { get; }
+        public WorkPreference[] WorkPreferences { get; }
         public List<SkillSet> SkillSets { get; }
         public List<WorkExperience> WorkExperiences { get; }
         public DateTime? ModifiedUTCDateTime { get; }
 
         public UserDetailDto(
-            string userId,
             string userName,
             string email,
             string firstName,
             string lastName,
+            string preferredName,
+            string countryCode,
             string contactNumber,
+            string introduction,
             DateTime? modifiedUTCDateTime,
-            WorkPreference? workPreference,
+            WorkPreference[] workPreferences,
             List<SkillSet> skillSets = null,
             List<WorkExperience> workExperiences = null,
             List<Attachment> profilePictures = null)
         {
-            UserId = userId;
             UserName = userName;
             Email = email;
             FirstName = firstName;
             LastName = lastName;
+            PreferredName = preferredName;
+            CountryCode = countryCode;
             ContactNumber = contactNumber;
+            Introduction = introduction;
             ProfilePictures = profilePictures;
-            WorkPreference = workPreference;
+            WorkPreferences = workPreferences;
             SkillSets = skillSets;
             WorkExperiences = workExperiences;
             ModifiedUTCDateTime = modifiedUTCDateTime;
@@ -105,14 +111,16 @@ namespace Api.Features.User
         public UserDetailDto CreateFromDomain(Domain.AggregatesModel.UserAggregate.User user)
         {
             return new UserDetailDto(
-                userId: user.UserId,
                 userName: user.UserName,
                 email: _aes.Decrypt(user.Email),
                 firstName: user.FirstName,
                 lastName: user.LastName,
+                preferredName: user.PreferredName,
+                countryCode: user.CountryCode,
                 contactNumber: user.ContactNumber,
+                introduction: user.Introduction,
                 profilePictures: user.ProfilePictures,
-                workPreference: user.WorkPreference,
+                workPreferences: user.WorkPreferences,
                 skillSets: user.SkillSets,
                 workExperiences: user.WorkExperiences,
                 modifiedUTCDateTime: user.ModifiedUTCDateTime);

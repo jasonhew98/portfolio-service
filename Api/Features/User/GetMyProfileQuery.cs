@@ -64,14 +64,16 @@ namespace Api.Features.User
         public UserDetailDto CreateFromDomain(Domain.AggregatesModel.UserAggregate.User user)
         {
             return new UserDetailDto(
-                userId: user.UserId,
                 userName: user.UserName,
                 email: _aes.Decrypt(user.Email),
                 firstName: user.FirstName,
                 lastName: user.LastName,
+                preferredName: user.PreferredName,
+                countryCode: user.CountryCode,
                 contactNumber: user.ContactNumber,
+                introduction: user.Introduction,
                 profilePictures: user.ProfilePictures,
-                workPreference: user.WorkPreference,
+                workPreferences: user.WorkPreferences,
                 skillSets: user.SkillSets,
                 workExperiences: user.WorkExperiences,
                 modifiedUTCDateTime: user.ModifiedUTCDateTime);

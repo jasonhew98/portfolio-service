@@ -14,18 +14,24 @@ namespace Domain.AggregatesModel.UserAggregate
 
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
+        public string PreferredName { get; private set; }
+        public string CountryCode { get; private set; }
         public string ContactNumber { get; private set; }
+        public string Introduction { get; private set; }
         public List<Attachment> ProfilePictures { get; private set; }
 
-        public WorkPreference? WorkPreference { get; private set; }
+        public WorkPreference[] WorkPreferences { get; private set; }
         public List<SkillSet> SkillSets { get; private set; }
         public List<WorkExperience> WorkExperiences { get; private set; }
 
         public User(
             string firstName,
             string lastName,
+            string preferredName = null,
+            string countryCode = null,
             string contactNumber = null,
-            WorkPreference? workPreference = null,
+            string introduction = null,
+            WorkPreference[] workPreferences = null,
             List<Attachment> profilePictures = null,
             List<SkillSet> skillSets = null,
             List<WorkExperience> workExperiences = null,
@@ -55,10 +61,13 @@ namespace Domain.AggregatesModel.UserAggregate
 
             FirstName = firstName;
             LastName = lastName;
+            PreferredName = preferredName;
+            CountryCode = countryCode;
             ContactNumber = contactNumber;
+            Introduction = introduction;
             ProfilePictures = profilePictures;
 
-            WorkPreference = workPreference;
+            WorkPreferences = workPreferences;
             SkillSets = skillSets;
             WorkExperiences = workExperiences;
         }
@@ -67,10 +76,13 @@ namespace Domain.AggregatesModel.UserAggregate
         {
             FirstName = user.FirstName;
             LastName = user.LastName;
+            PreferredName = user.PreferredName;
+            CountryCode = user.CountryCode;
             ContactNumber = user.ContactNumber;
+            Introduction = user.Introduction;
             ProfilePictures = user.ProfilePictures;
 
-            WorkPreference = user.WorkPreference;
+            WorkPreferences = user.WorkPreferences;
             SkillSets = user.SkillSets;
             WorkExperiences = user.WorkExperiences;
         }
