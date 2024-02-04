@@ -49,9 +49,9 @@ namespace Api
                 options.AddDefaultPolicy(builder =>
                 {
                     builder
-                        .AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader();
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
                 });
             });
 
@@ -128,6 +128,7 @@ namespace Api
                 });
             }
 
+            app.UseCors();
             app.UseMiddleware<JwtAuthorizationMiddleware>();
             app.UseDefaultFiles();
             app.UseStaticFiles();
