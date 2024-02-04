@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Cors;
 namespace Api.Features.Authentication
 {
     [Route("api/[controller]")]
-    [EnableCors("AllowAllHeaders")]
     [ApiController]
     public class AuthController : Controller
     {

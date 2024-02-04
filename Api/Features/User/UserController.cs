@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Cors;
 namespace Api.Features.User
 {
     [Route("api/[controller]")]
-    [EnableCors("AllowAllHeaders")]
     [ApiController]
     public class UserController : Controller
     {
