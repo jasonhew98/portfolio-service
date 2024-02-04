@@ -40,7 +40,7 @@ namespace Api.Features.User
         public string FirstName { get; }
         public string LastName { get; }
         public string ContactNumber { get; }
-        public WorkPreference? WorkPreference { get; }
+        public WorkPreference[] WorkPreferences { get; }
         public DateTime? ModifiedUTCDateTime { get; }
 
         public UserDto(
@@ -51,7 +51,7 @@ namespace Api.Features.User
             string lastName,
             string contactNumber,
             DateTime? modifiedUTCDateTime,
-            WorkPreference? workPreference = null)
+            WorkPreference[] workPreferences = null)
         {
             UserId = userId;
             UserName = userName;
@@ -59,7 +59,7 @@ namespace Api.Features.User
             FirstName = firstName;
             LastName = lastName;
             ContactNumber = contactNumber;
-            WorkPreference = workPreference;
+            WorkPreferences = workPreferences;
             ModifiedUTCDateTime = modifiedUTCDateTime;
         }
     }
@@ -114,7 +114,7 @@ namespace Api.Features.User
                 firstName: user.FirstName,
                 lastName: user.LastName,
                 contactNumber: user.ContactNumber,
-                workPreference: user.WorkPreference,
+                workPreferences: user.WorkPreferences,
                 modifiedUTCDateTime: user.ModifiedUTCDateTime);
         }
     }
