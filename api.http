@@ -60,11 +60,61 @@ Content-Type: application/json
     "UserId": "c3d7b33e790e4f89bc3ae46bdc98a40e",
     "FirstName": "Jia Sheng",
     "LastName": "Hew",
+    "PreferredName": "",
+    "CountryCode": "",
     "ContactNumber": "0126220832",
-    "WorkPreference": "Remote",
+    "Introduction": "",
+    "WorkPreferences": ["Remote"],
     "SkillSets": [
         {
             "Name": "C#",
+            "SkillType": "backend", // "frontend"
+            "ProficiencyLevel": "expert" // "beginner" "intermediate"
+        }
+    ],
+    "WorkExperiences": [
+        {
+            "CompanyName": "Fusionex",
+            "IsCurrentJob": true,
+            "StartDate": "2024-01-21T06:43:25.488Z",
+            "EndDate": null,
+            "Description": "",
+            "SkillSets": [
+                {
+                    "Name": "C#",
+                    "SkillType": "backend", // "frontend"
+                    "ProficiencyLevel": "expert" // "beginner" "intermediate"
+                }
+            ]
+        }
+    ],
+    "ModifiedUTCDateTime": "2024-02-01T11:41:32.123Z"
+}
+
+## My Profile
+### Get My Profile
+GET {{url}}/api/user/profile/me
+Authorization: Bearer {{AuthorizationToken}}
+Content-Type: application/json
+
+### Update My Profile
+PATCH {{url}}/api/user/profile/me
+Authorization: Bearer {{AuthorizationToken}}
+Content-Type: application/json
+
+{
+    "UserId": "c3d7b33e790e4f89bc3ae46bdc98a40e",
+    "FirstName": "Jia Sheng",
+    "LastName": "Hew",
+    "PreferredName": "",
+    "CountryCode": "",
+    "ContactNumber": "0126220832",
+    "Introduction": "",
+    "WorkPreferences": ["Remote"],
+    "SkillSets": [
+        {
+            "Name": "C#",
+            "SkillType": "backend",
             "ProficiencyLevel": 10
         }
     ],
@@ -78,15 +128,11 @@ Content-Type: application/json
             "SkillSets": [
                 {
                     "Name": "C#",
-                    "ProficiencyLevel": 10
+                    "SkillType": "backend", // "frontend"
+                    "ProficiencyLevel": "expert" // "beginner" "intermediate"
                 }
             ]
         }
     ],
     "ModifiedUTCDateTime": "2024-02-01T11:41:32.123Z"
 }
-
-### Get My Profile
-GET {{url}}/api/user/profile/me
-Authorization: Bearer {{AuthorizationToken}}
-Content-Type: application/json

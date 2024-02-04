@@ -12,6 +12,7 @@ namespace Api.Infrastructure.Authorization
     {
         string UserId { get; set; }
         string UserName { get; set; }
+        (string, string) Tuple();
     }
 
     public class CurrentUserAccessor : ICurrentUserAccessor
@@ -26,6 +27,11 @@ namespace Api.Infrastructure.Authorization
             _httpContextAccessor = httpContextAccessor;
             UserId = _httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == "id")?.Value;
             UserName = _httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.Sub)?.Value;
+        }
+
+        public (string, string) Tuple()
+        {
+            return (UserId, UserName);
         }
     }
 }

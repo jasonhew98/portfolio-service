@@ -1,4 +1,5 @@
 ﻿using Api.Infrastructure;
+using Api.Infrastructure.Authorization;
 using Api.Infrastructure.Helpers;
 using Api.Model;
 using Api.Seedwork;
@@ -25,10 +26,13 @@ namespace Api.Features.User
         public string UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string PreferredName { get; set; }
+        public string CountryCode { get; set; }
         public string ContactNumber { get; set; }
+        public string Introduction { get; set; }
         public List<UpdateAttachment> ProfilePictures { get; set; }
 
-        public WorkPreference? WorkPreference { get; set; }
+        public WorkPreference[] WorkPreferences { get; set; }
         public List<SkillSet> SkillSets { get; set; }
         public List<WorkExperience> WorkExperiences { get; set; }
 
@@ -64,13 +68,16 @@ namespace Api.Features.User
         private readonly IServiceHelper _serviceHelper;
         private readonly DirectoryPathConfigurationOptions _directoryPathConfiguration;
 
+        private readonly ICurrentUserAccessor _currentUser;
+
         public UpdateUserCommandHandler(
             ILogger<UpdateUserCommandHandler> logger,
             IUnitOfWork unitOfWork,
             IAesSecurity aes,
             IServiceHelper serviceHelper,
             IOptions<DirectoryPathConfigurationOptions> directoryPathConfiguration,
-            IUserRepository userRepository)
+            IUserRepository userRepository,
+            ICurrentUserAccessor currentUser)
         {
             _logger = logger;
             _unitOfWork = unitOfWork;
@@ -78,6 +85,7 @@ namespace Api.Features.User
             _serviceHelper = serviceHelper;
             _directoryPathConfiguration = directoryPathConfiguration.Value;
             _userRepository = userRepository;
+            _currentUser = currentUser;
         }
 
         public async Task<Result<UpdatedUserDto, CommandErrorResponse>> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
@@ -141,9 +149,12 @@ namespace Api.Features.User
                     new Domain.AggregatesModel.UserAggregate.User(
                         firstName: request.FirstName,
                         lastName: request.LastName,
+                        preferredName: request.PreferredName,
+                        countryCode: request.CountryCode,
                         contactNumber: request.ContactNumber,
+                        introduction: request.Introduction,
                         profilePictures: profilePictures,
-                        workPreference: request.WorkPreference,
+                        workPreferences: request.WorkPreferences,
                         skillSets: request.SkillSets,
                         workExperiences: request.WorkExperiences
                     )
@@ -151,7 +162,7 @@ namespace Api.Features.User
 
                 await _userRepository.UpdateUser(
                     user: user,
-                    currentUser: ("System", "System"),
+                    currentUser: _currentUser.Tuple(),
                     userId: request.UserId);
 
                 await _unitOfWork.Commit();

@@ -69,6 +69,7 @@ namespace Api.Features.User
 
         [HttpPatch]
         [ProducesResponseType(typeof(UpdatedUserDto), (int)HttpStatusCode.Accepted)]
+        [Authorize]
         public async Task<IActionResult> UpdateUser(
             [FromBody] UpdateUserCommand command)
         {
@@ -83,6 +84,16 @@ namespace Api.Features.User
         {
             var command = new GetMyProfileQuery();
 
+            return this.OkOrError(await _mediator.Send(command));
+        }
+
+        [HttpPatch]
+        [Route("profile/me")]
+        [Authorize]
+        [ProducesResponseType(typeof(UpdatedUserDto), (int)HttpStatusCode.Accepted)]
+        public async Task<IActionResult> UpdateMyProfile(
+            [FromBody] UpdateUserCommand command)
+        {
             return this.OkOrError(await _mediator.Send(command));
         }
     }
