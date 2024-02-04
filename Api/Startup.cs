@@ -44,7 +44,17 @@ namespace Api
             services.AddOptions().Configure<MicrosoftAuthServiceConfigurationOptions>(Configuration.GetSection("MicrosoftAuthServiceConfigurations"));
             services.AddOptions().Configure<MicrosoftGraphServiceConfigurationOptions>(Configuration.GetSection("MicrosoftGraphServiceConfigurations"));
 
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
+
             services.AddHttpContextAccessor();
 
             services.AddMvc(opt => opt.EnableEndpointRouting = false)
