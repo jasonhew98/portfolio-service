@@ -15,7 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using JsonConvert = Newtonsoft.Json.JsonConvert;
 
-namespace Infrastructure.Seedwork
+namespace Api.Infrastructure.Seedwork
 {
     public static class MediatorExtension
     {

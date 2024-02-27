@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
 
-namespace Infrastructure.Seedwork
+namespace Api.Infrastructure.Seedwork
 {
     public static class MongoDbConfiguration
     {

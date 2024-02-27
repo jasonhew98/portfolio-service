@@ -8,7 +8,7 @@ using Api.Infrastructure.Services;
 using Api.Seedwork.AesEncryption;
 using Autofac;
 using FluentValidation.AspNetCore;
-using Infrastructure.Seedwork;
+using Api.Infrastructure.Seedwork;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -50,10 +50,9 @@ namespace Api
                     policy =>
                     {
                         policy
-                        .WithOrigins("http://localhost:8080")
+                        .AllowAnyOrigin()
                         .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials();
+                        .AllowAnyMethod();
                     });
             });
 

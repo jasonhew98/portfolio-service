@@ -1,7 +1,7 @@
-﻿using Infrastructure.Seedwork;
+﻿using Api.Infrastructure.Seedwork;
 using MediatR;
 
-namespace Infrastructure.Repositories
+namespace Api.Infrastructure.Repositories
 {
     public class PortfolioMongoDbContext : MongoDbContext
     {

@@ -1,12 +1,12 @@
 ﻿using Domain.AggregatesModel.UserAggregate;
-using Infrastructure.Seedwork;
+using Api.Infrastructure.Seedwork;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Repositories
+namespace Api.Infrastructure.Repositories
 {
     public class MongoDbUserRepository : MongoDbRepository<User>, IUserRepository
     {

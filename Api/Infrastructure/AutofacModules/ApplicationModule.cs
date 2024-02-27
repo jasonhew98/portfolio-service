@@ -4,8 +4,6 @@ using Api.Seedwork.AesEncryption;
 using Autofac;
 using Autofac.Features.ResolveAnything;
 using Domain.AggregatesModel.UserAggregate;
-using Infrastructure.Repositories;
-using Infrastructure.Seedwork;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -13,6 +11,9 @@ using System;
 using System.Reflection;
 using Api.Infrastructure.Authorization;
 using Api.Infrastructure.Helpers;
+using Api.Infrastructure.Repositories;
+using Domain.AggregatesModel.TransactionAggregate;
+using Api.Infrastructure.Seedwork;
 
 namespace Api.Infrastructure.AutofacModules
 {
@@ -41,6 +42,10 @@ namespace Api.Infrastructure.AutofacModules
             builder.RegisterType<MongoDbUserRepository>().As<IUserRepository>().InstancePerLifetimeScope()
                 .WithParameter(parameterSelector,
                     (p, c) => c.Resolve<IOptions<PortfolioRepositoryOptions>>().Value.UserCollectionName);
+
+            builder.RegisterType<MongoDbTransactionRepository>().As<ITransactionRepository>().InstancePerLifetimeScope()
+                .WithParameter(parameterSelector,
+                    (p, c) => c.Resolve<IOptions<PortfolioRepositoryOptions>>().Value.TransactionCollectionName);
 
             builder.RegisterType<AesSecurity>().As<IAesSecurity>()
                 .InstancePerLifetimeScope();

@@ -4,7 +4,7 @@ using CSharpFunctionalExtensions;
 using Domain;
 using Domain.AggregatesModel.UserAggregate;
 using FluentValidation;
-using Infrastructure.Seedwork;
+using Api.Infrastructure.Seedwork;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System;

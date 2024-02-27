@@ -12,6 +12,7 @@
         public string MongoDbUrl { get; set; }
         public string Database { get; set; }
         public string UserCollectionName { get; set; }
+        public string TransactionCollectionName { get; set; }
     }
 
     public class JwtAuthorizationConfigurationOptions
