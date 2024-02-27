@@ -31,7 +31,7 @@ Content-Type: application/json
 
 ## User
 ### Get Users
-@sortBy="userId"
+@sortBy=userId
 @sortOrder=-1
 @currentPage=1
 @pageSize=10

@@ -240,6 +240,16 @@ namespace Api.Infrastructure.Seedwork
             return results;
         }
 
+        public virtual async Task<IEnumerable<TResult>> Aggregate<TResult>(List<BsonDocument> filter)
+        {
+            var data = await DbSet.AggregateAsync<BsonDocument>(filter);
+            var documents = await data.ToListAsync();
+            var test = documents.Where(d => d != null);
+            var results = documents.Where(d => d != null)
+                .Select(d => JsonConvert.DeserializeObject<TResult>(ToJson(d)));
+            return results;
+        }
+
         public virtual async Task<IEnumerable<T>> Query(FilterDefinition<T> filter,
             FindOptions<T, BsonDocument> options = null)
         {

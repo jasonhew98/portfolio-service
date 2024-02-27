@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -14,5 +15,6 @@ namespace Domain.Seedwork
         Task<IEnumerable<T>> Query();
         Task<IEnumerable<T>> Query(Expression<Func<T, bool>> filter);
         Task<T> QueryOne(Expression<Func<T, bool>> filter);
+        Task<IEnumerable<TResult>> Aggregate<TResult>(List<BsonDocument> filter);
     }
 }
