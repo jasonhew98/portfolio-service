@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Api.Infrastructure.Helpers
 {
-    public interface IServiceHelper
+    public interface IAttachmentHelper
     {
         Task CreateAttachment(string base64, string fileName, string folderPath);
     }

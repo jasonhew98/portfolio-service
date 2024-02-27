@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Api.Infrastructure.Helpers
 {
-    public class ServiceHelper : IServiceHelper
+    public class AttachmentHelper : IAttachmentHelper
     {
-        public ServiceHelper()
+        public AttachmentHelper()
         {
 
         }

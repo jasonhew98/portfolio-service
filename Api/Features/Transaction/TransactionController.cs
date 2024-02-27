@@ -7,33 +7,41 @@ using System.Net;
 using Api.Model;
 using Api.Infrastructure.Authorization;
 
-namespace Api.Features.User
+namespace Api.Features.Transaction
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : Controller
+    public class TransactionController : Controller
     {
         private readonly ILogger _logger;
         private readonly IMediator _mediator;
 
-        public UserController(
-            ILogger<UserController> logger,
+        public TransactionController(
+            ILogger<TransactionController> logger,
             IMediator mediator)
         {
             _logger = logger;
             _mediator = mediator;
         }
 
+        [HttpPost]
+        [Authorize]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.Accepted)]
+        public async Task<IActionResult> AddTransaction([FromBody] AddTransactionCommand command)
+        {
+            return this.OkOrError(await _mediator.Send(command));
+        }
+
         [HttpGet]
-        [Route("")]
-        [ProducesResponseType(typeof(UserDto[]), (int)HttpStatusCode.Accepted)]
-        public async Task<IActionResult> GetUsers(
+        [Authorize]
+        [ProducesResponseType(typeof(TransactionDto[]), (int)HttpStatusCode.Accepted)]
+        public async Task<IActionResult> GetTransactions(
             [FromQuery] string sortBy,
             [FromQuery] int sortOrder,
             [FromQuery] int currentPage,
             [FromQuery] int pageSize)
         {
-            var command = new GetUsersQuery(
+            var command = new GetTransactionsQuery(
                 sortBy: sortBy,
                 sortOrder: sortOrder,
                 currentPage: currentPage,
@@ -44,11 +52,12 @@ namespace Api.Features.User
 
         [HttpGet]
         [Route("pageSize")]
+        [Authorize]
         [ProducesResponseType(typeof(PageSizeDto), (int)HttpStatusCode.Accepted)]
-        public async Task<IActionResult> GetUserPageSize(
+        public async Task<IActionResult> GetTransactionPageSize(
             [FromQuery] int pageSize)
         {
-            var command = new GetUserPageSizeQuery(
+            var command = new GetTransactionPageSizeQuery(
                 pageSize: pageSize);
 
             return this.OkOrError(await _mediator.Send(command));
@@ -56,42 +65,30 @@ namespace Api.Features.User
 
         [HttpGet]
         [Route("detail")]
-        [ProducesResponseType(typeof(UserDetailDto), (int)HttpStatusCode.Accepted)]
-        public async Task<IActionResult> GetUser(
-            [FromQuery] string userId)
+        [ProducesResponseType(typeof(TransactionDetailDto), (int)HttpStatusCode.Accepted)]
+        public async Task<IActionResult> GetTransaction(
+            [FromQuery] string transactionId)
         {
-            var command = new GetUserQuery(
-                userId: userId);
+            var command = new GetTransactionQuery(
+                transactionId: transactionId);
 
             return this.OkOrError(await _mediator.Send(command));
         }
 
         [HttpPatch]
-        [ProducesResponseType(typeof(UpdatedUserDto), (int)HttpStatusCode.Accepted)]
         [Authorize]
-        public async Task<IActionResult> UpdateUser(
-            [FromBody] UpdateUserCommand command)
+        [ProducesResponseType(typeof(UpdatedTransactionDto), (int)HttpStatusCode.Accepted)]
+        public async Task<IActionResult> UpdateTransaction(
+            [FromBody] UpdateTransactionCommand command)
         {
             return this.OkOrError(await _mediator.Send(command));
         }
 
-        [HttpGet]
-        [Route("profile/me")]
+        [HttpDelete]
         [Authorize]
-        [ProducesResponseType(typeof(UserDetailDto), (int)HttpStatusCode.Accepted)]
-        public async Task<IActionResult> GetMyProfile()
-        {
-            var command = new GetMyProfileQuery();
-
-            return this.OkOrError(await _mediator.Send(command));
-        }
-
-        [HttpPatch]
-        [Route("profile/me")]
-        [Authorize]
-        [ProducesResponseType(typeof(UpdatedUserDto), (int)HttpStatusCode.Accepted)]
-        public async Task<IActionResult> UpdateMyProfile(
-            [FromBody] UpdateUserCommand command)
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.Accepted)]
+        public async Task<IActionResult> DeleteTransaction(
+            [FromBody] DeleteTransactionCommand command)
         {
             return this.OkOrError(await _mediator.Send(command));
         }

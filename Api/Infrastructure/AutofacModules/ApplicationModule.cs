@@ -59,7 +59,7 @@ namespace Api.Infrastructure.AutofacModules
             builder.RegisterType<AuthHelper>().As<IAuthHelper>()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<ServiceHelper>().As<IServiceHelper>()
+            builder.RegisterType<AttachmentHelper>().As<IAttachmentHelper>()
                 .InstancePerLifetimeScope();
 
             builder.Register((c, p) =>

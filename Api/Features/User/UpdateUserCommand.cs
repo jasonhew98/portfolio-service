@@ -65,7 +65,7 @@ namespace Api.Features.User
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserRepository _userRepository;
         private readonly IAesSecurity _aes;
-        private readonly IServiceHelper _serviceHelper;
+        private readonly IAttachmentHelper _serviceHelper;
         private readonly DirectoryPathConfigurationOptions _directoryPathConfiguration;
 
         private readonly ICurrentUserAccessor _currentUser;
@@ -74,7 +74,7 @@ namespace Api.Features.User
             ILogger<UpdateUserCommandHandler> logger,
             IUnitOfWork unitOfWork,
             IAesSecurity aes,
-            IServiceHelper serviceHelper,
+            IAttachmentHelper serviceHelper,
             IOptions<DirectoryPathConfigurationOptions> directoryPathConfiguration,
             IUserRepository userRepository,
             ICurrentUserAccessor currentUser)

@@ -10,11 +10,13 @@ namespace Domain.AggregatesModel.TransactionAggregate
             int limit,
             int offset,
             string sortBy,
-            int sortOrder);
+            int sortOrder,
+            string userId = null);
 
-        Task<long> GetTransactionCount();
+        Task<long> GetTransactionCount(string userId = null);
 
         Task<Transaction> GetTransaction(
+            string transactionId,
             string userId = null);
 
         Task<bool> UpdateTransaction(

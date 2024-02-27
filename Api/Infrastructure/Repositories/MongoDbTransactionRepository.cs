@@ -16,9 +16,12 @@ namespace Api.Infrastructure.Repositories
         }
 
         public async Task<Transaction> GetTransaction(
+            string transactionId,
             string userId = null)
         {
             var filter = Builders<Transaction>.Filter.Empty;
+
+            filter &= Builders<Transaction>.Filter.Eq(x => x.TransactionId, transactionId);
 
             if (!string.IsNullOrEmpty(userId))
                 filter &= Builders<Transaction>.Filter.Eq(x => x.CreatedBy, userId);
@@ -32,9 +35,13 @@ namespace Api.Infrastructure.Repositories
             int limit,
             int offset,
             string sortBy,
-            int sortOrder)
+            int sortOrder,
+            string userId = null)
         {
             var filter = Builders<Transaction>.Filter.Empty;
+
+            if (!string.IsNullOrEmpty(userId))
+                filter &= Builders<Transaction>.Filter.Eq(x => x.CreatedBy, userId);
 
             sortBy = !string.IsNullOrEmpty(sortBy) ? sortBy : "_id";
 
@@ -52,9 +59,12 @@ namespace Api.Infrastructure.Repositories
             return transactions.ToList();
         }
 
-        public async Task<long> GetTransactionCount()
+        public async Task<long> GetTransactionCount(string userId = null)
         {
             var filter = Builders<Transaction>.Filter.Empty;
+
+            if (!string.IsNullOrEmpty(userId))
+                filter &= Builders<Transaction>.Filter.Eq(x => x.CreatedBy, userId);
 
             var count = await DbSet.CountDocumentsAsync(filter);
 
@@ -70,6 +80,7 @@ namespace Api.Infrastructure.Repositories
             if (!string.IsNullOrEmpty(userId))
                 filter &= Builders<Transaction>.Filter.Eq(x => x.CreatedBy, userId);
 
+            filter &= Builders<Transaction>.Filter.Eq(x => x.TransactionId, transaction.TransactionId);
             filter &= Builders<Transaction>.Filter.Eq(x => x.ModifiedUTCDateTime, transaction.OriginalModifiedUTCDateTime);
 
             var update = Builders<Transaction>.Update

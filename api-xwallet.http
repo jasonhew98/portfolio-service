@@ -1,8 +1,69 @@
 @url=https://localhost:5001
-@AuthorizationToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMzZDdiMzNlNzkwZTRmODliYzNhZTQ2YmRjOThhNDBlIiwic3ViIjoiamFzb25oZXc5OCIsImVtYWlsIjoiaDZWdTVqQjY4WkhPYnUzOTlaYzgxeFZvUFJtWGRhZ2ZTWmRndnBGekpncz0iLCJqdGkiOiI5MjQ0MGZmMy02MzE5LTRhZGMtOWE2NS0xZWViOGRkNTY3NGMiLCJleHAiOjE3MDY3OTQ5MTMsImlzcyI6InBvcnRmb2xpby5jb20iLCJhdWQiOiJwb3J0Zm9saW8uY29tIn0.tPW_OTScnCEyh3S2_bBuVF4LrDKmnlfTEUWTwcYgs28
+@AuthorizationToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMzZDdiMzNlNzkwZTRmODliYzNhZTQ2YmRjOThhNDBlIiwic3ViIjoiamFzb25oZXc5OCIsImVtYWlsIjoiaDZWdTVqQjY4WkhPYnUzOTlaYzgxeFZvUFJtWGRhZ2ZTWmRndnBGekpncz0iLCJqdGkiOiIwNDVhMjY1My1kM2JlLTQ5YWUtODU3Mi04MzE2NDc2MjRhZGUiLCJleHAiOjE3MDkwMzgyMzQsImlzcyI6InBvcnRmb2xpby5jb20iLCJhdWQiOiJwb3J0Zm9saW8uY29tIn0.ZbxT-JBjImShNLzdHCiVCVtARq2gyKUu6uHQVmPzvSU
 
 ## Health
 
 ### Get Health
 GET {{url}}/api/health
 Content-Type: application/json
+
+## Transaction
+### Add Transaction
+POST {{url}}/api/transaction
+Authorization: Bearer {{AuthorizationToken}}
+Content-Type: application/json
+
+{
+    "MainCategory": "Food & Beverage",
+    "SubCategory": "Food & Beverage",
+    "TransactionDate": "2024-02-01T11:41:32.123Z",
+    "Notes": "Ereakfast",
+    "PaymentMethod": "Cash",
+    "PaymentAmount": 250.00
+}
+
+### Get Transactions
+@sortBy="MainCategory"
+@sortOrder=1
+@currentPage=1
+@pageSize=10
+GET {{url}}/api/transaction?sortBy={{sortBy}}&sortOrder={{sortOrder}}&currentPage={{currentPage}}&pageSize={{pageSize}}
+Authorization: Bearer {{AuthorizationToken}}
+Content-Type: application/json
+
+### Get Transaction Page Size
+@pageSize=10
+GET {{url}}/api/transaction/pageSize?pageSize={{pageSize}}
+Authorization: Bearer {{AuthorizationToken}}
+Content-Type: application/json
+
+### Get Transaction Detail
+@transactionId=191e32d6fa7c46449bff507f61763b66
+GET {{url}}/api/transaction/detail?transactionId={{transactionId}}
+Authorization: Bearer {{AuthorizationToken}}
+Content-Type: application/json
+
+### Update Transaction Detail
+PATCH {{url}}/api/transaction
+Authorization: Bearer {{AuthorizationToken}}
+Content-Type: application/json
+
+{
+    "TransactionId": "191e32d6fa7c46449bff507f61763b66",
+    "MainCategory": "Food & Beverage",
+    "SubCategory": "Food & Beverage",
+    "TransactionDate": "2024-02-01T11:41:32.123Z",
+    "Notes": "Breakfast",
+    "PaymentMethod": "Cash",
+    "PaymentAmount": 150.00,
+    "ModifiedUTCDateTime": "2024-02-27T10:52:17.145Z"
+}
+
+### Delete Transaction
+DELETE {{url}}/api/transaction
+Authorization: Bearer {{AuthorizationToken}}
+Content-Type: application/json
+
+{
+    "TransactionId": "191e32d6fa7c46449bff507f61763b66",
+}

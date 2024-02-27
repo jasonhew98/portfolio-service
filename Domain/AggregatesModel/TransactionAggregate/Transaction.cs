@@ -8,13 +8,9 @@ namespace Domain.AggregatesModel.TransactionAggregate
     public enum PaymentMethod
     {
         Cash,
-        QR,
         DebitCard,
         CreditCard,
         Transfer,
-        Voucher,
-        MobilePayment,
-        WebPayment
     }
 
 
@@ -59,14 +55,20 @@ namespace Domain.AggregatesModel.TransactionAggregate
             PaymentAmount = paymentAmount;
         }
 
-        public void UpdateTransactionDetails(Transaction transaction)
+        public void UpdateTransactionDetails(
+            string mainCategory,
+            string subCategory,
+            DateTime transactionDate,
+            string notes,
+            PaymentMethod paymentMethod,
+            double paymentAmount)
         {
-            MainCategory = transaction.MainCategory;
-            SubCategory = transaction.SubCategory;
-            TransactionDate = transaction.TransactionDate;
-            Notes = transaction.Notes;
-            PaymentMethod = transaction.PaymentMethod;
-            PaymentAmount = transaction.PaymentAmount;
+            MainCategory = mainCategory;
+            SubCategory = subCategory;
+            TransactionDate = transactionDate;
+            Notes = notes;
+            PaymentMethod = paymentMethod;
+            PaymentAmount = paymentAmount;
         }
     }
 }
