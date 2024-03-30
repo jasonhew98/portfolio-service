@@ -23,17 +23,25 @@ Content-Type: application/json
 }
 
 ### Get Transactions
-@sortBy=mainCategory
+@sortBy=paymentAmount
 @sortOrder=1
 @currentPage=1
-@pageSize=10
-GET {{url}}/api/transaction?sortBy={{sortBy}}&sortOrder={{sortOrder}}&currentPage={{currentPage}}&pageSize={{pageSize}}
+@pageSize=
+@startDate=
+@endDate=
+@mainCategory=
+@subCategory=
+@paymentMethod=
+@startPaymentAmount=
+@endPaymentAmount=
+
+GET {{url}}/api/transaction?startDate={{startDate}}&endDate={{endDate}}&mainCategory={{mainCategory}}&subCategory={{subCategory}}&paymentMethod={{paymentMethod}}&startPaymentAmount={{startPaymentAmount}}&endPaymentAmount={{endPaymentAmount}}&sortBy={{sortBy}}&sortOrder={{sortOrder}}&currentPage={{currentPage}}&pageSize={{pageSize}}
 Authorization: Bearer {{AuthorizationToken}}
 Content-Type: application/json
 
 ### Get Transaction Page Size
 @pageSize=10
-GET {{url}}/api/transaction/pageSize?pageSize={{pageSize}}
+GET {{url}}/api/transaction/pageSize?startDate={{startDate}}&endDate={{endDate}}&mainCategory={{mainCategory}}&subCategory={{subCategory}}&paymentMethod={{paymentMethod}}&startPaymentAmount={{startPaymentAmount}}&endPaymentAmount={{endPaymentAmount}}&pageSize={{pageSize}}
 Authorization: Bearer {{AuthorizationToken}}
 Content-Type: application/json
 
@@ -60,10 +68,7 @@ Content-Type: application/json
 }
 
 ### Delete Transaction
-DELETE {{url}}/api/transaction
+DELETE {{url}}/api/transaction/191e32d6fa7c46449bff507f61763b66
 Authorization: Bearer {{AuthorizationToken}}
 Content-Type: application/json
 
-{
-    "TransactionId": "191e32d6fa7c46449bff507f61763b66",
-}

@@ -5,6 +5,7 @@ using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace Api.Infrastructure.Repositories
 {
@@ -36,12 +37,40 @@ namespace Api.Infrastructure.Repositories
             int offset,
             string sortBy,
             int sortOrder,
-            string userId = null)
+            string userId = null,
+            DateTime? startDate = null,
+            DateTime? endDate = null,
+            string mainCategory = null,
+            string subCategory = null,
+            string paymentMethod = null,
+            double? startPaymentAmount = null,
+            double? endPaymentAmount = null)
         {
             var filter = Builders<Transaction>.Filter.Empty;
 
             if (!string.IsNullOrEmpty(userId))
                 filter &= Builders<Transaction>.Filter.Eq(x => x.CreatedBy, userId);
+
+            if (startDate.HasValue)
+                filter &= Builders<Transaction>.Filter.Gte(x => x.TransactionDate, startDate);
+
+            if (endDate.HasValue)
+                filter &= Builders<Transaction>.Filter.Lte(x => x.TransactionDate, endDate);
+
+            if (!string.IsNullOrEmpty(mainCategory))
+                filter &= Builders<Transaction>.Filter.Eq(x => x.MainCategory, mainCategory);
+
+            if (!string.IsNullOrEmpty(subCategory))
+                filter &= Builders<Transaction>.Filter.Eq(x => x.SubCategory, subCategory);
+
+            if (!string.IsNullOrEmpty(paymentMethod))
+                filter &= Builders<Transaction>.Filter.Eq("paymentMethod", paymentMethod);
+
+            if (startPaymentAmount.HasValue)
+                filter &= Builders<Transaction>.Filter.Gte(x => x.PaymentAmount, startPaymentAmount);
+
+            if (endPaymentAmount.HasValue)
+                filter &= Builders<Transaction>.Filter.Lte(x => x.PaymentAmount, endPaymentAmount);
 
             sortBy = !string.IsNullOrEmpty(sortBy) ? sortBy : "_id";
 
@@ -59,12 +88,41 @@ namespace Api.Infrastructure.Repositories
             return transactions.ToList();
         }
 
-        public async Task<long> GetTransactionCount(string userId = null)
+        public async Task<long> GetTransactionCount(
+            string userId = null,
+            DateTime? startDate = null,
+            DateTime? endDate = null,
+            string mainCategory = null,
+            string subCategory = null,
+            string paymentMethod = null,
+            double? startPaymentAmount = null,
+            double? endPaymentAmount = null)
         {
             var filter = Builders<Transaction>.Filter.Empty;
 
             if (!string.IsNullOrEmpty(userId))
                 filter &= Builders<Transaction>.Filter.Eq(x => x.CreatedBy, userId);
+
+            if (startDate.HasValue)
+                filter &= Builders<Transaction>.Filter.Gte(x => x.TransactionDate, startDate);
+
+            if (endDate.HasValue)
+                filter &= Builders<Transaction>.Filter.Lte(x => x.TransactionDate, endDate);
+
+            if (!string.IsNullOrEmpty(mainCategory))
+                filter &= Builders<Transaction>.Filter.Eq(x => x.MainCategory, mainCategory);
+
+            if (!string.IsNullOrEmpty(subCategory))
+                filter &= Builders<Transaction>.Filter.Eq(x => x.SubCategory, subCategory);
+
+            if (!string.IsNullOrEmpty(paymentMethod))
+                filter &= Builders<Transaction>.Filter.Eq("paymentMethod", paymentMethod);
+
+            if (startPaymentAmount.HasValue)
+                filter &= Builders<Transaction>.Filter.Gte(x => x.PaymentAmount, startPaymentAmount);
+
+            if (endPaymentAmount.HasValue)
+                filter &= Builders<Transaction>.Filter.Lte(x => x.PaymentAmount, endPaymentAmount);
 
             var count = await DbSet.CountDocumentsAsync(filter);
 

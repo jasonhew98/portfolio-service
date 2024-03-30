@@ -15,6 +15,12 @@ namespace Api.Features.Transaction
     public class DeleteTransactionCommand : IRequest<Result<bool, CommandErrorResponse>>
     {
         public string TransactionId { get; set; }
+
+        public DeleteTransactionCommand(
+            string transactionId)
+        {
+            TransactionId = transactionId;
+        }
     }
 
     public class DeleteTransactionCommandValidator : AbstractValidator<DeleteTransactionCommand>

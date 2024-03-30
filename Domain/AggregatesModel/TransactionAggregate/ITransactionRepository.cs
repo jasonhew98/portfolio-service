@@ -1,4 +1,5 @@
 ﻿using Domain.Seedwork;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,9 +12,24 @@ namespace Domain.AggregatesModel.TransactionAggregate
             int offset,
             string sortBy,
             int sortOrder,
-            string userId = null);
+            string userId = null,
+            DateTime? startDate = null,
+            DateTime? endDate = null,
+            string mainCategory = null,
+            string subCategory = null,
+            string paymentMethod = null,
+            double? startPaymentAmount = null,
+            double? endPaymentAmount = null);
 
-        Task<long> GetTransactionCount(string userId = null);
+        Task<long> GetTransactionCount(
+            string userId = null,
+            DateTime? startDate = null,
+            DateTime? endDate = null,
+            string mainCategory = null,
+            string subCategory = null,
+            string paymentMethod = null,
+            double? startPaymentAmount = null,
+            double? endPaymentAmount = null);
 
         Task<Transaction> GetTransaction(
             string transactionId,

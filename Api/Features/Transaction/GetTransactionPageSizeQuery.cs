@@ -5,7 +5,9 @@ using CSharpFunctionalExtensions;
 using Domain.AggregatesModel.TransactionAggregate;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using MongoDB.Bson;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,12 +15,33 @@ namespace Api.Features.Transaction
 {
     public class GetTransactionPageSizeQuery : IRequest<Result<PageSizeDto, CommandErrorResponse>>
     {
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public string MainCategory { get; set; }
+        public string SubCategory { get; set; }
+        public PaymentMethod? PaymentMethod { get; set; }
+        public double? StartPaymentAmount { get; set; }
+        public double? EndPaymentAmount { get; set; }
         public int PageSize { get; set; }
 
         public GetTransactionPageSizeQuery(
-            int pageSize)
+            int pageSize,
+            DateTime? startDate = null,
+            DateTime? endDate = null,
+            string mainCategory = null,
+            string subCategory = null,
+            PaymentMethod? paymentMethod = null,
+            double? startPaymentAmount = null,
+            double? endPaymentAmount = null)
         {
             PageSize = pageSize;
+            StartDate = startDate;
+            EndDate = endDate;
+            MainCategory = mainCategory;
+            SubCategory = subCategory;
+            PaymentMethod = paymentMethod;
+            StartPaymentAmount = startPaymentAmount;
+            EndPaymentAmount = endPaymentAmount;
         }
     }
 
@@ -44,7 +67,15 @@ namespace Api.Features.Transaction
             {
                 var userId = _currentUser.UserId;
 
-                var count = await _transactionRepository.GetTransactionCount(userId: userId);
+                var count = await _transactionRepository.GetTransactionCount(
+                    userId: userId,
+                    startDate: request.StartDate,
+                    endDate: request.EndDate,
+                    mainCategory: request.MainCategory,
+                    subCategory: request.SubCategory,
+                    paymentMethod: request.PaymentMethod.HasValue ? Enum.GetName(typeof(PaymentMethod), request.PaymentMethod) : null,
+                    startPaymentAmount: request.StartPaymentAmount,
+                    endPaymentAmount: request.EndPaymentAmount);
 
                 var result = new PageSizeDto(count, request.PageSize);
 

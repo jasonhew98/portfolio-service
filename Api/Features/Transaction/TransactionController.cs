@@ -6,6 +6,8 @@ using Api.Seedwork;
 using System.Net;
 using Api.Model;
 using Api.Infrastructure.Authorization;
+using System;
+using Domain.AggregatesModel.TransactionAggregate;
 
 namespace Api.Features.Transaction
 {
@@ -39,13 +41,27 @@ namespace Api.Features.Transaction
             [FromQuery] string sortBy,
             [FromQuery] int sortOrder,
             [FromQuery] int currentPage,
-            [FromQuery] int pageSize)
+            [FromQuery] int pageSize,
+            [FromQuery] DateTime? startDate = null,
+            [FromQuery] DateTime? endDate = null,
+            [FromQuery] string mainCategory = null,
+            [FromQuery] string subCategory = null,
+            [FromQuery] PaymentMethod? paymentMethod = null,
+            [FromQuery] double? startPaymentAmount = null,
+            [FromQuery] double? endPaymentAmount = null)
         {
             var command = new GetTransactionsQuery(
                 sortBy: sortBy,
                 sortOrder: sortOrder,
                 currentPage: currentPage,
-                pageSize: pageSize);
+                pageSize: pageSize,
+                startDate: startDate,
+                endDate: endDate,
+                mainCategory: mainCategory,
+                subCategory: subCategory,
+                paymentMethod: paymentMethod,
+                startPaymentAmount: startPaymentAmount,
+                endPaymentAmount: endPaymentAmount);
 
             return this.OkOrError(await _mediator.Send(command));
         }
@@ -55,10 +71,24 @@ namespace Api.Features.Transaction
         [Authorize]
         [ProducesResponseType(typeof(PageSizeDto), (int)HttpStatusCode.Accepted)]
         public async Task<IActionResult> GetTransactionPageSize(
-            [FromQuery] int pageSize)
+            [FromQuery] int pageSize,
+            [FromQuery] DateTime? startDate = null,
+            [FromQuery] DateTime? endDate = null,
+            [FromQuery] string mainCategory = null,
+            [FromQuery] string subCategory = null,
+            [FromQuery] PaymentMethod? paymentMethod = null,
+            [FromQuery] double? startPaymentAmount = null,
+            [FromQuery] double? endPaymentAmount = null)
         {
             var command = new GetTransactionPageSizeQuery(
-                pageSize: pageSize);
+                pageSize: pageSize,
+                startDate: startDate,
+                endDate: endDate,
+                mainCategory: mainCategory,
+                subCategory: subCategory,
+                paymentMethod: paymentMethod,
+                startPaymentAmount: startPaymentAmount,
+                endPaymentAmount: endPaymentAmount);
 
             return this.OkOrError(await _mediator.Send(command));
         }
@@ -86,10 +116,12 @@ namespace Api.Features.Transaction
 
         [HttpDelete]
         [Authorize]
+        [Route("{transactionId}")]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.Accepted)]
-        public async Task<IActionResult> DeleteTransaction(
-            [FromBody] DeleteTransactionCommand command)
+        public async Task<IActionResult> DeleteTransaction(string transactionId)
         {
+            var command = new DeleteTransactionCommand(
+                transactionId: transactionId);
             return this.OkOrError(await _mediator.Send(command));
         }
     }
