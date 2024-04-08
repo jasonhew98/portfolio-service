@@ -12,13 +12,13 @@ using Api.Infrastructure.Seedwork;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Converters;
 using System;
+using Asp.Versioning;
 
 namespace Api
 {
@@ -59,8 +59,9 @@ namespace Api
             services.AddHttpContextAccessor();
 
             services.AddMvc(opt => opt.EnableEndpointRouting = false)
-                .AddNewtonsoftJson()
-                .AddFluentValidation();
+                .AddNewtonsoftJson();
+
+            services.AddFluentValidationAutoValidation();
 
             services.AddControllers()
                 .AddNewtonsoftJson(options =>
@@ -71,11 +72,10 @@ namespace Api
             services.AddControllersWithViews().AddNewtonsoftJson();
             services.AddRazorPages().AddNewtonsoftJson();
 
-            services.AddApiVersioning(opt =>
+            services.AddApiVersioning(options =>
             {
-                opt.ReportApiVersions = true;
-                opt.DefaultApiVersion = ApiVersion.Parse("1.0");
-                opt.AssumeDefaultVersionWhenUnspecified = true;
+                options.ReportApiVersions = true;
+                options.ApiVersionReader = new UrlSegmentApiVersionReader();
             });
 
             services.AddAuthentication(o =>

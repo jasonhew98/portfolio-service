@@ -17,7 +17,7 @@ Content-Type: application/json
     "MainCategory": "Food & Beverage",
     "SubCategory": "Food & Beverage",
     "TransactionDate": "2024-02-01T11:41:32.123Z",
-    "Notes": "Ereakfast",
+    "Notes": "Breakfast",
     "PaymentMethod": "Cash",
     "PaymentAmount": 250.00
 }

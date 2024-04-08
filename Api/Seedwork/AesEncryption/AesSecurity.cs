@@ -28,7 +28,7 @@ namespace Api.Seedwork.AesEncryption
         {
             using (Aes aes = Aes.Create())
             {
-                var pbkdf2 = new Rfc2898DeriveBytes(password, salt, iterations);
+                var pbkdf2 = new Rfc2898DeriveBytes(password, salt, iterations, HashAlgorithmName.SHA256);
 
                 aes.Key = pbkdf2.GetBytes(keySize / 8);
                 aes.IV = pbkdf2.GetBytes(keySize / 16);
@@ -51,7 +51,7 @@ namespace Api.Seedwork.AesEncryption
         {
             using (Aes aes = Aes.Create())
             {
-                var pbkdf2 = new Rfc2898DeriveBytes(password, salt, iterations);
+                var pbkdf2 = new Rfc2898DeriveBytes(password, salt, iterations, HashAlgorithmName.SHA256);
 
                 aes.Key = pbkdf2.GetBytes(keySize / 8);
                 aes.IV = pbkdf2.GetBytes(keySize / 16);

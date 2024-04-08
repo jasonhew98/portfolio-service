@@ -100,7 +100,9 @@ namespace Api.Infrastructure.Seedwork
         public MongoDbContext(string connectionUrl, string database, IMediator mediator)
         {
             _mediator = mediator;
-            var mongoClient = new MongoClient(connectionUrl);
+            var settings = MongoClientSettings.FromConnectionString(connectionUrl);
+            settings.ServerApi = new ServerApi(ServerApiVersion.V1);
+            var mongoClient = new MongoClient(settings);
             _database = mongoClient.GetDatabase(database);
             MongoClient = mongoClient;
             ChangeTracker = new ChangeTracker();

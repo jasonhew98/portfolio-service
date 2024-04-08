@@ -17,12 +17,6 @@ namespace Api.Infrastructure.AutofacModules
             builder.RegisterAssemblyTypes(apiAssembly).AsClosedTypesOf(typeof(IRequestHandler<,>));
             builder.RegisterAssemblyTypes(apiAssembly).AsClosedTypesOf(typeof(INotificationHandler<>));
             builder.RegisterAssemblyTypes(apiAssembly).Where(t => t.IsClosedTypeOf(typeof(IValidator<>))).AsImplementedInterfaces();
-
-            builder.Register<ServiceFactory>(context =>
-            {
-                var componentContext = context.Resolve<IComponentContext>();
-                return t => componentContext.TryResolve(t, out var o) ? o : null;
-            });
         }
     }
 }
