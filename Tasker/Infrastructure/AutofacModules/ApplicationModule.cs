@@ -1,0 +1,87 @@
+﻿using Tasker.Infrastructure.Services;
+using Tasker.Seedwork.AesEncryption;
+using Autofac;
+using Autofac.Features.ResolveAnything;
+using Domain.AggregatesModel.UserAggregate;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using System;
+using System.Reflection;
+using Tasker.Infrastructure.Authorization;
+using Tasker.Infrastructure.Helpers;
+using Tasker.Infrastructure.Repositories;
+using Domain.AggregatesModel.TransactionAggregate;
+using Tasker.Infrastructure.Seedwork;
+
+namespace Tasker.Infrastructure.AutofacModules
+{
+    public class ApplicationModule : Autofac.Module
+    {
+        private readonly ServiceConfiguration _serviceConfiguration;
+
+        public ApplicationModule(ServiceConfiguration serviceConfiguration)
+        {
+            _serviceConfiguration = serviceConfiguration;
+        }
+
+        protected override void Load(ContainerBuilder builder)
+        {
+            builder.RegisterType<PortfolioMongoDbContext>().As<IMongoContext>().InstancePerLifetimeScope()
+                .WithParameter((pi, ctx) => pi.Name == "mongoDbUrl",
+                    (p, c) => c.Resolve<IOptions<PortfolioRepositoryOptions>>().Value.MongoDbUrl)
+                .WithParameter((pi, ctx) => pi.Name == "database",
+                    (p, c) => c.Resolve<IOptions<PortfolioRepositoryOptions>>().Value.Database);
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
+
+            builder.RegisterType<CurrentUserAccessor>().As<ICurrentUserAccessor>();
+
+            Func<ParameterInfo, IComponentContext, bool> parameterSelector = (pi, ctx) => pi.Name == "collectionName";
+
+            builder.RegisterType<MongoDbUserRepository>().As<IUserRepository>().InstancePerLifetimeScope()
+                .WithParameter(parameterSelector,
+                    (p, c) => c.Resolve<IOptions<PortfolioRepositoryOptions>>().Value.UserCollectionName);
+
+            builder.RegisterType<MongoDbTransactionRepository>().As<ITransactionRepository>().InstancePerLifetimeScope()
+                .WithParameter(parameterSelector,
+                    (p, c) => c.Resolve<IOptions<PortfolioRepositoryOptions>>().Value.TransactionCollectionName);
+
+            builder.RegisterType<AesSecurity>().As<IAesSecurity>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<ApiGoogleDriveService>().As<GoogleDriveService>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<ApiFileService>().As<FileService>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<AuthHelper>().As<IAuthHelper>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<AttachmentHelper>().As<IAttachmentHelper>()
+                .InstancePerLifetimeScope();
+
+            builder.Register((c, p) =>
+            {
+                var accessor = c.Resolve<IHttpContextAccessor>();
+                var logger = c.Resolve<ILogger<ContainerBuilder>>();
+
+                var headerAuthorization =
+                    accessor.HttpContext.Request.Headers["authorization"].ToString() ?? string.Empty;
+                var token = "";
+
+                if (!string.IsNullOrEmpty(headerAuthorization))
+                {
+                    logger.LogInformation("Request authorization header value: {value}", headerAuthorization);
+                    token = headerAuthorization.Replace("Bearer", "").Trim();
+                }
+
+                return true;
+            }).InstancePerDependency();
+
+            builder.RegisterSource(
+                new AnyConcreteTypeNotAlreadyRegisteredSource(type => type.Namespace != null && !type.Namespace.Contains("Microsoft"))
+                .WithRegistrationsAs(b => b.InstancePerDependency()));
+        }
+    }
+}
