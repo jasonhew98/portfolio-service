@@ -13,6 +13,7 @@
         public string Database { get; set; }
         public string UserCollectionName { get; set; }
         public string TransactionCollectionName { get; set; }
+        public string CronJobCollectionName { get; set; }
     }
 
     public class JwtAuthorizationConfigurationOptions

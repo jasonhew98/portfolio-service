@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Domain.AggregatesModel.CronJobAggregate;
+using Microsoft.Extensions.Options;
 using Quartz;
 using Tasker.Infrastructure;
 
@@ -18,7 +19,12 @@ namespace Tasker.Features
         {
             try
             {
-                Console.WriteLine("Error configuring scheduler.");
+                var cronJob = new CronJob(
+                    cronJobId: Guid.NewGuid(),
+                    jobName: typeof(SyncBalanceJob).Name);
+
+
+
                 return Task.CompletedTask;
             }
             catch (Exception e)
