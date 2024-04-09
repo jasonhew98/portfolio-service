@@ -14,8 +14,7 @@ namespace Tasker.Infrastructure
         {
             try
             {
-                var test = serviceProvider.GetService<IOptions<CronJobConfigurationOptions>>().Value.SyncBalanceCronSchedule;
-                var cronSchedule = "*/3 * * * * ? *";
+                var cronSchedule = serviceProvider.GetService<IOptions<CronJobConfigurationOptions>>().Value.SyncBalanceCronSchedule;
 
                 var job = JobBuilder.Create<SyncBalanceJob>()
                     .WithIdentity(typeof(SyncBalanceJob).Name)
