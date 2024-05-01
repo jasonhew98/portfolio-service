@@ -47,8 +47,8 @@ namespace Api.Features.Transaction
             [FromQuery] string mainCategory = null,
             [FromQuery] string subCategory = null,
             [FromQuery] PaymentMethod? paymentMethod = null,
-            [FromQuery] double? startPaymentAmount = null,
-            [FromQuery] double? endPaymentAmount = null)
+            [FromQuery] decimal? startPaymentAmount = null,
+            [FromQuery] decimal? endPaymentAmount = null)
         {
             var command = new GetTransactionsQuery(
                 sortBy: sortBy,
@@ -77,8 +77,8 @@ namespace Api.Features.Transaction
             [FromQuery] string mainCategory = null,
             [FromQuery] string subCategory = null,
             [FromQuery] PaymentMethod? paymentMethod = null,
-            [FromQuery] double? startPaymentAmount = null,
-            [FromQuery] double? endPaymentAmount = null)
+            [FromQuery] decimal? startPaymentAmount = null,
+            [FromQuery] decimal? endPaymentAmount = null)
         {
             var command = new GetTransactionPageSizeQuery(
                 pageSize: pageSize,

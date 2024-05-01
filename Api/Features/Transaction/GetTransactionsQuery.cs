@@ -22,8 +22,8 @@ namespace Api.Features.Transaction
         public string MainCategory { get; set; }
         public string SubCategory { get; set; }
         public PaymentMethod? PaymentMethod { get; set; }
-        public double? StartPaymentAmount { get; set; }
-        public double? EndPaymentAmount { get; set; }
+        public decimal? StartPaymentAmount { get; set; }
+        public decimal? EndPaymentAmount { get; set; }
         public string SortBy { get; set; }
         public int SortOrder { get; set; }
         public int PageSize { get; set; }
@@ -39,8 +39,8 @@ namespace Api.Features.Transaction
             string mainCategory = null,
             string subCategory = null,
             PaymentMethod? paymentMethod = null,
-            double? startPaymentAmount = null,
-            double? endPaymentAmount = null)
+            decimal? startPaymentAmount = null,
+            decimal? endPaymentAmount = null)
         {
             SortBy = sortBy;
             SortOrder = sortOrder;
@@ -63,7 +63,7 @@ namespace Api.Features.Transaction
         public string SubCategory { get; set; }
         public DateTime TransactionDate { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
-        public double PaymentAmount { get; set; }
+        public decimal PaymentAmount { get; set; }
         public DateTime? ModifiedUTCDateTime { get; set; }
 
         public static TransactionDto CreateFromDomain(TransactionModel transaction)

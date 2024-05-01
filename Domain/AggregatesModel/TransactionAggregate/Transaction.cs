@@ -22,7 +22,7 @@ namespace Domain.AggregatesModel.TransactionAggregate
         public DateTime TransactionDate { get; private set; }
         public string Notes { get; private set; }
         public PaymentMethod PaymentMethod { get; private set; }
-        public double PaymentAmount { get; private set; }
+        public decimal PaymentAmount { get; private set; }
 
         public Transaction(
             string transactionId,
@@ -31,7 +31,7 @@ namespace Domain.AggregatesModel.TransactionAggregate
             DateTime transactionDate,
             string notes,
             PaymentMethod paymentMethod,
-            double paymentAmount,
+            decimal paymentAmount,
             string createdBy = null,
             string createdByName = null,
             DateTime? createdUTCDateTime = null,
@@ -61,7 +61,7 @@ namespace Domain.AggregatesModel.TransactionAggregate
             DateTime transactionDate,
             string notes,
             PaymentMethod paymentMethod,
-            double paymentAmount)
+            decimal paymentAmount)
         {
             MainCategory = mainCategory;
             SubCategory = subCategory;

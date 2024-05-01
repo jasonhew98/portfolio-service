@@ -18,8 +18,8 @@ namespace Domain.AggregatesModel.TransactionAggregate
             string mainCategory = null,
             string subCategory = null,
             string paymentMethod = null,
-            double? startPaymentAmount = null,
-            double? endPaymentAmount = null);
+            decimal? startPaymentAmount = null,
+            decimal? endPaymentAmount = null);
 
         Task<long> GetTransactionCount(
             string userId = null,
@@ -28,8 +28,8 @@ namespace Domain.AggregatesModel.TransactionAggregate
             string mainCategory = null,
             string subCategory = null,
             string paymentMethod = null,
-            double? startPaymentAmount = null,
-            double? endPaymentAmount = null);
+            decimal? startPaymentAmount = null,
+            decimal? endPaymentAmount = null);
 
         Task<Transaction> GetTransaction(
             string transactionId,

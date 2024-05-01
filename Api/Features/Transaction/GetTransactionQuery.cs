@@ -30,7 +30,7 @@ namespace Api.Features.Transaction
         public DateTime TransactionDate { get; set; }
         public string Notes { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
-        public double PaymentAmount { get; set; }
+        public decimal PaymentAmount { get; set; }
         public DateTime? ModifiedUTCDateTime { get; set; }
 
         public static TransactionDetailDto CreateFromDomain(TransactionModel transaction)

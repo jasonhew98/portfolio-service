@@ -43,8 +43,8 @@ namespace Api.Infrastructure.Repositories
             string mainCategory = null,
             string subCategory = null,
             string paymentMethod = null,
-            double? startPaymentAmount = null,
-            double? endPaymentAmount = null)
+            decimal? startPaymentAmount = null,
+            decimal? endPaymentAmount = null)
         {
             var filter = Builders<Transaction>.Filter.Empty;
 
@@ -95,8 +95,8 @@ namespace Api.Infrastructure.Repositories
             string mainCategory = null,
             string subCategory = null,
             string paymentMethod = null,
-            double? startPaymentAmount = null,
-            double? endPaymentAmount = null)
+            decimal? startPaymentAmount = null,
+            decimal? endPaymentAmount = null)
         {
             var filter = Builders<Transaction>.Filter.Empty;
 

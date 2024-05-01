@@ -20,8 +20,8 @@ namespace Api.Features.Transaction
         public string MainCategory { get; set; }
         public string SubCategory { get; set; }
         public PaymentMethod? PaymentMethod { get; set; }
-        public double? StartPaymentAmount { get; set; }
-        public double? EndPaymentAmount { get; set; }
+        public decimal? StartPaymentAmount { get; set; }
+        public decimal? EndPaymentAmount { get; set; }
         public int PageSize { get; set; }
 
         public GetTransactionPageSizeQuery(
@@ -31,8 +31,8 @@ namespace Api.Features.Transaction
             string mainCategory = null,
             string subCategory = null,
             PaymentMethod? paymentMethod = null,
-            double? startPaymentAmount = null,
-            double? endPaymentAmount = null)
+            decimal? startPaymentAmount = null,
+            decimal? endPaymentAmount = null)
         {
             PageSize = pageSize;
             StartDate = startDate;
