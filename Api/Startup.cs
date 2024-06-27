@@ -19,6 +19,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Converters;
 using System;
 using Asp.Versioning;
+using Api.Application.SignalR;
 
 namespace Api
 {
@@ -50,11 +51,14 @@ namespace Api
                     policy =>
                     {
                         policy
-                        .AllowAnyOrigin()
+                        .WithOrigins("http://localhost:8080")
+                        .AllowAnyMethod()
                         .AllowAnyHeader()
-                        .AllowAnyMethod();
+                        .AllowCredentials();
                     });
             });
+
+            services.AddSignalR();
 
             services.AddHttpContextAccessor();
 
@@ -118,18 +122,15 @@ namespace Api
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseCors(b =>
-                {
-                    b.AllowAnyHeader();
-                    b.AllowAnyMethod();
-                    b.AllowAnyOrigin();
-                });
-            }
+            app.UseRouting();
 
             app.UseCors();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHub<PortfolioHub>("/portfoliohub");
+            });
+
             app.UseMiddleware<JwtAuthorizationMiddleware>();
             app.UseDefaultFiles();
             app.UseStaticFiles();
